@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dual Portfolio Builder"
+  short_description: "Build same-source web and PDF portfolios."
+  default_prompt: "Create a same-source personal portfolio with a responsive web version and A4 PDF version."
