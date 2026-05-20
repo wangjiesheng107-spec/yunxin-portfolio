@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>杨芸欣｜酷狗音乐垂类运营面试作品集</title>
+  <style>
+    :root {
+      --ink: #121212;
+      --paper: #f7f1e6;
+      --white: #fffaf2;
+      --muted: #6b6258;
+      --red: #c83a32;
+      --blue: #1e7892;
+      --green: #54734b;
+      --gold: #b98741;
+      --line: rgba(18, 18, 18, .14);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      color: var(--ink);
+      background: #0f0f0f;
+      line-height: 1.48;
+    }
+    img { display: block; max-width: 100%; }
+    .slide {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      background: #0f0f0f;
+    }
+    .frame {
+      width: min(100%, 1600px);
+      aspect-ratio: 16 / 9;
+      max-height: calc(100vh - 56px);
+      background: var(--paper);
+      overflow: hidden;
+      position: relative;
+      border-radius: 8px;
+      box-shadow: 0 22px 80px rgba(0,0,0,.34);
+      display: grid;
+      grid-template-rows: minmax(0, 1fr);
+      padding: clamp(18px, 2.6vw, 44px);
+    }
+    .frame > * {
+      min-width: 0;
+      min-height: 0;
+    }
+    .frame.dark {
+      background: #111;
+      color: #fff;
+    }
+    .frame.photo {
+      color: #fff;
+      background: #111;
+      isolation: isolate;
+    }
+    .frame.photo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: var(--photo) center / cover no-repeat;
+    }
+    .frame.photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(90deg, rgba(0,0,0,.82), rgba(0,0,0,.46), rgba(0,0,0,.18));
+    }
+    .page-no {
+      position: absolute;
+      right: 36px;
+      top: 28px;
+      color: rgba(18,18,18,.45);
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .dark .page-no,
+    .photo .page-no {
+      color: rgba(255,255,255,.62);
+    }
+    .kicker {
+      color: var(--red);
+      font-weight: 900;
+      font-size: clamp(13px, 1.1vw, 18px);
+      letter-spacing: 0;
+      margin-bottom: 14px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      max-width: 1000px;
+      font-size: clamp(38px, 5.8vw, 104px);
+      line-height: 1.02;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: clamp(26px, 3.4vw, 56px);
+      line-height: 1.06;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: clamp(21px, 2.35vw, 40px);
+      line-height: 1.12;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+    .cover-copy {
+      margin-top: 20px;
+      font-size: clamp(16px, 1.55vw, 27px);
+      color: rgba(255,255,255,.88);
+      display: grid;
+      gap: 8px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 11px;
+      border: 1px solid rgba(255,255,255,.36);
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      color: #fff;
+      font-size: clamp(11px, .9vw, 15px);
+      white-space: nowrap;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: clamp(18px, 3vw, 54px);
+      align-items: center;
+    }
+    .split.reverse {
+      grid-template-columns: 1.08fr .92fr;
+    }
+    .lead {
+      margin-top: 14px;
+      color: #3b3630;
+      font-size: clamp(13px, 1vw, 19px);
+    }
+    .dark .lead { color: rgba(255,255,255,.78); }
+    .identity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .identity {
+      min-height: 74px;
+      background: var(--white);
+      border-left: 5px solid var(--red);
+      padding: 11px;
+      display: grid;
+      align-content: start;
+      gap: 5px;
+    }
+    .identity:nth-child(2) { border-color: var(--blue); }
+    .identity:nth-child(3) { border-color: var(--green); }
+    .identity:nth-child(4) { border-color: var(--gold); }
+    .identity strong {
+      font-size: clamp(14px, 1.05vw, 20px);
+    }
+    .identity span {
+      color: var(--muted);
+      font-size: clamp(11px, .8vw, 15px);
+    }
+    .portrait-panel {
+      min-height: 0;
+      display: grid;
+      gap: 10px;
+      align-content: stretch;
+    }
+    .big-stat {
+      background: #111;
+      color: #fff;
+      border-radius: 6px;
+      padding: 18px;
+      display: grid;
+      align-content: end;
+      height: 116px;
+      overflow: hidden;
+    }
+    .big-stat strong {
+      display: block;
+      font-size: clamp(36px, 4.4vw, 76px);
+      line-height: .92;
+    }
+    .big-stat span {
+      margin-top: 12px;
+      color: rgba(255,255,255,.75);
+      font-size: clamp(11px, .82vw, 15px);
+    }
+    .jd-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .jd {
+      background: var(--white);
+      border-top: 5px solid var(--blue);
+      padding: 20px;
+      min-height: 150px;
+    }
+    .jd:nth-child(2) { border-color: var(--red); }
+    .jd:nth-child(3) { border-color: var(--green); }
+    .jd:nth-child(4) { border-color: var(--gold); }
+    .jd strong {
+      display: block;
+      font-size: clamp(18px, 1.35vw, 24px);
+      margin-bottom: 8px;
+    }
+    .jd span {
+      color: var(--muted);
+      font-size: clamp(14px, 1.05vw, 18px);
+    }
+    .match-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .match-card {
+      background: var(--white);
+      border-top: 5px solid var(--blue);
+      padding: 11px;
+      height: 96px;
+      overflow: hidden;
+      display: grid;
+      align-content: start;
+      gap: 5px;
+    }
+    .match-card:nth-child(2) { border-color: var(--red); }
+    .match-card:nth-child(3) { border-color: var(--green); }
+    .match-card:nth-child(4) { border-color: var(--gold); }
+    .match-card:nth-child(5) { border-color: var(--ink); }
+    .match-card:nth-child(6) { border-color: var(--blue); }
+    .match-card strong {
+      font-size: clamp(13px, 1vw, 19px);
+      line-height: 1.2;
+    }
+    .match-card span {
+      color: var(--muted);
+      font-size: clamp(10px, .76vw, 14px);
+    }
+    .case-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: clamp(16px, 2.2vw, 36px);
+      align-items: center;
+      height: 100%;
+      overflow: hidden;
+    }
+    .case-grid > * {
+      min-width: 0;
+      min-height: 0;
+    }
+    .role {
+      color: var(--muted);
+      font-weight: 800;
+      margin: 8px 0 12px;
+      font-size: clamp(11px, .8vw, 15px);
+    }
+    .story {
+      color: #322e29;
+      font-size: clamp(12px, .84vw, 16px);
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .proof {
+      background: #fff;
+      border-left: 5px solid var(--red);
+      padding: 9px 10px;
+      min-height: 48px;
+      font-weight: 800;
+      font-size: clamp(11px, .78vw, 14px);
+    }
+    .proof:nth-child(2) { border-color: var(--blue); }
+    .proof:nth-child(3) { border-color: var(--green); }
+    .proof:nth-child(4) { border-color: var(--gold); }
+    .steps {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 6px;
+      color: #3a352f;
+      font-size: clamp(10px, .72vw, 13px);
+    }
+    .steps li {
+      padding-left: 16px;
+      border-left: 3px solid var(--red);
+    }
+    .image-board {
+      display: grid;
+      gap: 8px;
+      height: 100%;
+      max-height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .image-board.two {
+      grid-template-rows: 1.1fr .9fr;
+    }
+    .image-board.three {
+      grid-template-rows: 1.1fr .9fr;
+    }
+    .image-board img {
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      min-height: 0;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      min-height: 0;
+    }
+    .ppt-shot {
+      object-fit: contain !important;
+      background: #fff;
+      padding: 5px;
+    }
+    .ops-map {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .ops-step {
+      background: rgba(255,255,255,.74);
+      border: 1px solid var(--line);
+      padding: 8px;
+      min-height: 54px;
+    }
+    .ops-step strong {
+      display: block;
+      color: var(--red);
+      font-size: clamp(10px, .72vw, 13px);
+      margin-bottom: 2px;
+    }
+    .ops-step span {
+      color: #3b3630;
+      font-size: clamp(9px, .68vw, 12px);
+    }
+    .ending {
+      align-content: center;
+      gap: 18px;
+    }
+    .ending h2 {
+      max-width: 1100px;
+    }
+    .ending-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 1120px;
+    }
+    .ending-card {
+      background: rgba(255,255,255,.08);
+      border-top: 4px solid var(--red);
+      padding: 15px;
+      min-height: 110px;
+    }
+    .ending-card:nth-child(2) { border-color: var(--blue); }
+    .ending-card:nth-child(3) { border-color: var(--gold); }
+    .ending-card strong {
+      display: block;
+      color: #fff;
+      font-size: clamp(16px, 1.35vw, 26px);
+      margin-bottom: 6px;
+    }
+    .ending-card span {
+      color: rgba(255,255,255,.76);
+      font-size: clamp(11px, .8vw, 16px);
+    }
+    @media print {
+      html { scroll-snap-type: none; }
+      body { background: #fff; }
+      .slide {
+        min-height: auto;
+        padding: 0;
+        break-after: page;
+        background: #fff;
+      }
+      .frame {
+        width: 100vw;
+        height: 56.25vw;
+        max-height: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      @page { size: 16in 9in; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <section class="slide">
+    <div class="frame photo" style="--photo: url('assets/ttpd-group.jpg')">
+      <div class="page-no">01</div>
+      <div style="align-self:end">
+        <div class="kicker">求职面试作品集｜酷狗音乐垂类运营</div>
+        <h1>杨芸欣：把音乐兴趣变成可参与的内容现场</h1>
+        <div class="cover-copy">
+          <div>目标岗位：酷狗音乐垂类运营实习生</div>
+          <div>关键词：有创意｜懂内容｜有执行力</div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">音乐内容上线</span>
+          <span class="pill">社媒宣传推广</span>
+          <span class="pill">内容资源整理</span>
+          <span class="pill">数据跟踪</span>
+          <span class="pill">基础运营支持</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="frame">
+      <div class="page-no">02</div>
+      <div class="split">
+        <div>
+          <div class="kicker">PROFILE</div>
+          <h2>能把想法落成内容动作</h2>
+          <p class="lead">华南理工大学工商管理专业，经历集中在音乐粉丝活动、校园用户运营、品牌/商业分析。适合用运营视角讲清楚：用户是谁、内容怎么打动人、执行如何推进、结果如何复盘。</p>
+          <div class="identity-grid">
+            <div class="identity"><strong>院校背景</strong><span>华南理工大学｜工商管理专业</span></div>
+            <div class="identity"><strong>岗位相关</strong><span>音乐内容兴趣、互联网运营经验、社媒与社群实践</span></div>
+            <div class="identity"><strong>表达方式</strong><span>能把项目拆成目标、动作、证据、复盘</span></div>
+            <div class="identity"><strong>工具能力</strong><span>Office / WPS / Excel / AI 辅助分析 / 基础 PS</span></div>
+          </div>
+        </div>
+        <div class="portrait-panel">
+          <div class="big-stat"><strong>120人</strong><span>TTPD 音乐活动私域社群，从内容预热到现场到场承接</span></div>
+          <div class="big-stat" style="background:#fdfaf3;color:#111;border:1px solid var(--line)"><strong>500+</strong><span style="color:#5d554c">寒招项目累计现场用户触达，完成宣讲、答疑与复盘</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="frame">
+      <div class="page-no">03</div>
+      <div>
+        <div>
+          <div class="kicker">JD MATCH</div>
+          <h2>岗位匹配度</h2>
+          <p class="lead">岗位关键词：音乐内容上线、首发运营、社媒宣推、内容资源整理、数据跟踪、基础运营支持。</p>
+          <div class="match-list">
+            <div class="match-card"><strong>音乐品类理解</strong><span>关注欧美流行、电音、摇滚；喜欢 Taylor Swift、Dua Lipa、Avril Lavigne、Billie Eilish。</span></div>
+            <div class="match-card"><strong>音乐实践基础</strong><span>会电子琴、钢琴、吉他；曾任学院团委艺术分团乐器队队长。</span></div>
+            <div class="match-card"><strong>内容宣发活动</strong><span>TTPD 活动完成小红书、公众号、粉丝群扩散与回顾链路。</span></div>
+            <div class="match-card"><strong>数据与运营能力</strong><span>SHEIN 数据运营实习，完成 800+ 商品主图 A/B Test。</span></div>
+            <div class="match-card"><strong>工具与建模能力</strong><span>选修电子表格建模；Office 熟练，获计算机 MS Office 二级。</span></div>
+            <div class="match-card"><strong>资源整理与执行</strong><span>节目单、流程图、岗位分工、宣讲 PPT、资料归档均有产出。</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="frame">
+      <div class="page-no">04</div>
+      <div class="case-grid">
+        <div>
+          <div class="kicker">CASE 01｜MUSIC COMMUNITY</div>
+          <h3>TTPD Taylor Swift 歌迷音乐会</h3>
+          <p class="role">发起人 / 主办 / 全流程运营｜2025.04 - 2026.04</p>
+          <p class="story">围绕 Taylor Swift 专辑周年节点，发起广州线下公益音乐聚会。这个项目最贴近酷狗音乐垂类运营：从音乐兴趣人群洞察开始，完成内容预热、用户招募、社群维护、节目组织、现场执行和活动回顾。</p>
+          <div class="proof-grid">
+            <div class="proof">20 天内完成从创意到落地</div>
+            <div class="proof">120 人微信私域社群</div>
+            <div class="proof">约 100-110 名用户到场</div>
+            <div class="proof">6 篇小红书 + 2 篇公众号推文</div>
+          </div>
+          <ul class="steps">
+            <li>将专辑周年设计成粉丝可参与事件：弹唱、手链交换、互动问答、即兴合唱。</li>
+            <li>通过小红书私信和粉丝群定向触达，招募歌手、志愿者和首批观众。</li>
+            <li>拆分签到、场控、物料、摄影、舞台技术和宣传岗位，保障现场推进。</li>
+          </ul>
+        </div>
+        <div class="image-board two">
+          <img src="assets/ttpd-group.jpg" alt="TTPD 一周年音乐会现场合影">
+          <div class="pair">
+            <img src="assets/ttpd-poster.jpg" alt="TTPD 一周年活动海报">
+            <img src="assets/ttpd-stage.jpg" alt="TTPD 二周年活动现场大屏">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="frame">
+      <div class="page-no">05</div>
+      <div class="case-grid">
+        <div>
+          <div class="kicker">CASE 02｜USER OPERATION</div>
+          <h3>华南理工大学寒招活动</h3>
+          <p class="role">校队队长 / 用户运营 / 经验分享人｜2024 - 2025</p>
+          <p class="story">寒招是校园场景下的用户运营：面向高中生和家长，完成前期问题收集、线下宣讲触达、咨询答疑、联系方式留存、线上承接和复盘沉淀。</p>
+          <div class="proof-grid">
+            <div class="proof">带领 5 人团队推进全流程</div>
+            <div class="proof">累计 500+ 现场用户参与</div>
+            <div class="proof">优秀校队省级评分第一晋级决赛</div>
+            <div class="proof">经验分享影响 1000+ 参与者</div>
+          </div>
+          <div class="ops-map">
+            <div class="ops-step"><strong>需求洞察</strong><span>收集分数、专业、校园生活、备考心态等真实问题。</span></div>
+            <div class="ops-step"><strong>内容设计</strong><span>把学校介绍转成用户关心的决策信息。</span></div>
+            <div class="ops-step"><strong>现场触达</strong><span>摆摊、PPT、咨询册、文创、进班宣讲组合推进。</span></div>
+            <div class="ops-step"><strong>复盘沉淀</strong><span>总结物资、信息展示等问题并优化方法。</span></div>
+          </div>
+          <ul class="steps">
+            <li>用线上预热、线下宣讲、联系方式留存和后续群答疑，串起用户触达链路。</li>
+            <li>作为优秀案例代表做寒招经验分享，将一次项目经验转化为可复制方法。</li>
+          </ul>
+        </div>
+        <div class="image-board two">
+          <img src="assets/recruit-booth.png" alt="寒招摆摊宣讲现场">
+          <div class="pair">
+            <img src="assets/recruit-talk.png" alt="寒招进班宣讲现场">
+            <img src="assets/recruit-award.jpg" alt="寒招校队三等奖证书">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="frame">
+      <div class="page-no">06</div>
+      <div class="case-grid">
+        <div>
+          <div class="kicker">CASE 03｜BRAND & BUSINESS ANALYSIS</div>
+          <h3>企业文化案例分析与商业项目</h3>
+          <p class="role">案例分析成员 / 商业组成员｜2024 - 2025</p>
+          <p class="story">这组经历补足运营岗位需要的市场理解和结构化表达能力。通过品牌文化、社媒话题、用户共创、竞品与商业模式分析，训练从用户、内容、竞争和商业目标同时看问题。</p>
+          <div class="proof-grid">
+            <div class="proof">企业文化案例分析大赛二等奖</div>
+            <div class="proof">使用 PEST / SWOT / 波特五力模型</div>
+            <div class="proof">调研 5 家核心竞品</div>
+            <div class="proof">参与 12 万字商业计划书与路演迭代</div>
+          </div>
+          <ul class="steps">
+            <li>分析品牌人格化、社媒种草、用户共创产品等传播路径。</li>
+            <li>把复杂商业信息压缩为答辩逻辑，服务现场表达和团队协作。</li>
+            <li>形成对内容运营的补充理解：不能只凭直觉，也要看用户、平台和竞争环境。</li>
+          </ul>
+        </div>
+        <div class="image-board three">
+          <img src="assets/case-defense-stage.jpg" alt="企业文化案例分析答辩现场">
+          <div class="pair">
+            <img src="assets/case-team.jpg" alt="企业文化案例分析团队合照">
+            <img class="ppt-shot" src="assets/case-defense-ppt.jpg" alt="企业文化案例分析答辩 PPT 页面">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="frame dark ending">
+      <div class="page-no">07</div>
+      <div>
+        <div class="kicker">THANK YOU</div>
+        <h2>我适合垂类运营，因为我做过把兴趣人群聚起来、让内容被看见、让项目真正发生的完整过程。</h2>
+      </div>
+      <div class="ending-grid">
+        <div class="ending-card"><strong>懂音乐内容</strong><span>能从专辑、粉丝文化和社交传播里找到内容钩子。</span></div>
+        <div class="ending-card"><strong>懂用户运营</strong><span>能把公域触达、私域承接、线下参与和后续复盘串起来。</span></div>
+        <div class="ending-card"><strong>执行力可靠</strong><span>能处理人员、物料、流程、场地、数据和表达材料。</span></div>
+      </div>
+      <p class="lead">期待把这些经历迁移到酷狗音乐的内容上线、首发运营、社媒宣推和日常运营支持中。</p>
+    </div>
+  </section>
+</body>
+</html>
